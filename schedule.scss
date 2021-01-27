@@ -1,0 +1,105 @@
+/* --------------- vars -------------------- */
+
+$cell-width: 14px;
+$cell-height: 24px;
+
+/* -------------- /vars -------------------- */
+
+
+/* --------------- Common -------------------- */
+
+.schedule,
+.schedule-days,
+.schedule-hours,
+.schedule-cells_row {
+    display: flex;
+}
+
+.schedule-days {
+    flex-direction: column;
+}
+
+.schedule-day {
+    display: inline-block;
+    height: $cell-height;
+    width: $cell-width*2;
+
+    font-size: 13px;
+    line-height: $cell-height;
+    text-align: right;
+    text-transform: capitalize;
+    color: #999;
+
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+}
+
+.schedule-cells_cnt {
+    margin-left: 4px;
+}
+
+.schedule-cells {
+    overflow: hidden; // because border-radius
+
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.schedule-cells_row:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+}
+
+.schedule-cell {
+    display: inline-block;
+    vertical-align: top;
+    height: $cell-height;
+    width: $cell-width;
+
+    font-size: 0;
+    line-height: 0;
+
+    cursor: pointer;
+
+    &:not(:last-child) {
+        border-right: 1px solid #f0f0f0;
+    }
+
+    &:nth-child(2n):not(:last-child) {
+        border-right: 1px solid #ccc;
+    }
+
+    &:hover,
+    &.__hovered {
+        background-color: #f7f7f7;
+    }
+
+    &.__selected {
+        background-color: #fffcd8;
+    }
+
+    &.__selected:after {
+        content: 'V';
+        display: inline-block;
+        width: 12px;
+
+        font-size: 10px;
+        color: #c7b632;
+        line-height: 26px;
+        text-align: center;
+        font-weight: bold;
+    }
+}
+
+.schedule-hour {
+    padding-top: 4px;
+    width: $cell-width;
+
+    font-size: 10px;
+    text-align: center;
+    color: #999;
+
+    border-right: 1px solid transparent;
+    cursor: pointer;
+}
+
+/* --------------- /Common ------------------- */

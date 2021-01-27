@@ -1,0 +1,30 @@
+doctype html
+html(lang="en")
+    head
+        title= pageTitle
+        link(rel="stylesheet", href="style.scss")
+        link(rel="stylesheet", href="schedule.scss")
+    body
+        div(class='container')
+            div(class='head') Shedule
+
+            div(class='schedule', id="schedule")
+                div(class='schedule-days')
+                    each val in ['mon', 'tue', 'wen', 'thu', 'fri', 'sat', 'sun']
+                        span(class='schedule-day js-schedule-day', data-weekday=val)= val
+                div(class='schedule-cells_cnt')
+                    div(class='schedule-cells js-schedule-cells')
+                        - var i = 1;
+                        each val, index in ['mon', 'tue', 'wen', 'thu', 'fri', 'sat', 'sun']
+                            div(data-attr=index, class='schedule-cells_row')
+                                - var j = 0;
+                                while j < 24
+                                    span(data-weekday=val, data-hour=j++, class='schedule-cell js-schedule-cell')
+                    div(class='schedule-hours js-schedule-hours')
+                        - var h = 0;
+                            while h < 24
+                                div(class='schedule-hour js-schedule-hour', data-hour=h)= h++
+
+        script(src="main.js")
+
+            

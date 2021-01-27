@@ -53,6 +53,7 @@ export default class Schedule {
             this.modelHovered[weekday] = [];
         });
 
+        this.boundOnMouseUp = this.onMouseUp.bind(this);
         window.addEventListener('mouseup', this.boundOnMouseUp);
         this._element.addEventListener('click', this, false);
         this._element.addEventListener('mousedown', this, false);
@@ -317,4 +318,13 @@ export default class Schedule {
             }
         }
     };
+
+    destroy() {
+        window.removeEventListener('mouseup', this.boundOnMouseUp);
+        this._element.removeEventListener('click', this, false);
+        this._element.removeEventListener('mousedown', this, false);
+        this._element.removeEventListener('mouseup', this, false);
+        this._element.removeEventListener('mouseover', this, false);
+        this._element.removeEventListener('mouseout', this, false);
+    }
 }

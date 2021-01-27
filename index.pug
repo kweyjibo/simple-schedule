@@ -8,14 +8,15 @@ html(lang="en")
         div(class='container')
             div(class='head') Shedule
 
+            - var values = ['mon', 'tue', 'wen', 'thu', 'fri', 'sat', 'sun'];
             div(class='schedule', id="schedule")
                 div(class='schedule-days')
-                    each val in ['mon', 'tue', 'wen', 'thu', 'fri', 'sat', 'sun']
+                    each val in values
                         span(class='schedule-day js-schedule-day', data-weekday=val)= val
                 div(class='schedule-cells_cnt')
                     div(class='schedule-cells js-schedule-cells')
                         - var i = 1;
-                        each val, index in ['mon', 'tue', 'wen', 'thu', 'fri', 'sat', 'sun']
+                        each val, index in values
                             div(data-attr=index, class='schedule-cells_row')
                                 - var j = 0;
                                 while j < 24

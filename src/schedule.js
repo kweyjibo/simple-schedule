@@ -17,16 +17,16 @@ const HOUR_ATTR = 'data-hour';
 function byClass(root, className) {
     if (root) {
         if (root.nodeType === 11) { // == Node.DOCUMENT_FRAGMENT_NODE
-            var result = [];
-            for (var df = 0; df < root.childNodes.length; df++) {
-                var childNode = root.childNodes[df];
+            let result = [];
+            for (let df = 0; df < root.childNodes.length; df++) {
+                let childNode = root.childNodes[df];
                 if (childNode.getElementsByClassName) {
-                    result = result.concat(Array.prototype.slice.call(childNode.getElementsByClassName(className)));
+                    result = result.concat([...childNode.getElementsByClassName(className)]);
                 }
             }
             return result;
         }
-        return Array.prototype.slice.call(root.getElementsByClassName(className));
+        return [...root.getElementsByClassName(className)];
     }
     return [];
 }
@@ -35,12 +35,12 @@ export default class Schedule {
 
     constructor (element) {
 
-        this._element = element;
+        this.__element = element;
         
         this.rows = byClass(element, ROW_CLASS);
         this.cells = byClass(element, CELL_CLASS);
 
-        var weekdays = this.weekdays = [];
+        let weekdays = this.weekdays = [];
         this.rows.forEach(function (row) {
             weekdays.push(row.getAttribute(WEEKDAY_ATTR));
         });
@@ -55,11 +55,11 @@ export default class Schedule {
 
         this.boundOnMouseUp = this.onMouseUp.bind(this);
         window.addEventListener('mouseup', this.boundOnMouseUp);
-        this._element.addEventListener('click', this, false);
-        this._element.addEventListener('mousedown', this, false);
-        this._element.addEventListener('mouseup', this, false);
-        this._element.addEventListener('mouseover', this, false);
-        this._element.addEventListener('mouseout', this, false);
+        this._element.addEventListener('click', this);
+        this._element.addEventListener('mousedown', this);
+        this._element.addEventListener('mouseup', this);
+        this._element.addEventListener('mouseover', this);
+        this._element.addEventListener('mouseout', this);
     };
 
     /**
@@ -122,15 +122,15 @@ export default class Schedule {
      *
      */
     render() {
-        var modelSelected = this.modelSelected;
-        var modelHovered = this.modelHovered;
-        var count = 0;
+        let modelSelected = this.modelSelected;
+        let modelHovered = this.modelHovered;
+        let count = 0;
 
         this.cells.forEach(function (cell) {
-            var weekday = cell.getAttribute(WEEKDAY_ATTR);
-            var hour = cell.getAttribute(HOUR_ATTR);
-            var selected = modelSelected[weekday][hour];
-            var hovered = modelHovered[weekday][hour];
+            let weekday = cell.getAttribute(WEEKDAY_ATTR);
+            let hour = cell.getAttribute(HOUR_ATTR);
+            let selected = modelSelected[weekday][hour];
+            let hovered = modelHovered[weekday][hour];
 
             if (selected) {
                 count += 1;
@@ -145,9 +145,9 @@ export default class Schedule {
      * @param {Event} event
      */
     onChooseRow(event) {
-        var weekday = event.target.getAttribute(WEEKDAY_ATTR);
-        var model = this.modelSelected;
-        var hour, select = false;
+        let weekday = event.target.getAttribute(WEEKDAY_ATTR);
+        let model = this.modelSelected;
+        let hour, select = false;
 
         for (hour = 0; hour < 24; hour++) {
             if (!model[weekday][hour.toString()]) {
@@ -166,9 +166,9 @@ export default class Schedule {
      * @param {Event} event
      */
     onChooseColumn(event) {
-        var hour = event.target.getAttribute(HOUR_ATTR);
-        var model = this.modelSelected;
-        var select = false;
+        let hour = event.target.getAttribute(HOUR_ATTR);
+        let model = this.modelSelected;
+        let select = false;
 
         this.weekdays.forEach(function (weekday) {
             if (!model[weekday][hour]) {
@@ -192,9 +192,9 @@ export default class Schedule {
             return;
         }
 
-        var weekday = event.target.getAttribute(WEEKDAY_ATTR);
+        let weekday = event.target.getAttribute(WEEKDAY_ATTR);
 
-        for (var hour = 0; hour < 24; hour++) {
+        for (let hour = 0; hour < 24; hour++) {
             this.modelHovered[weekday][hour] = flag;
         }
 
@@ -210,8 +210,8 @@ export default class Schedule {
             return;
         }
 
-        var hour = event.target.getAttribute(HOUR_ATTR);
-        var modelHovered = this.modelHovered;
+        let hour = event.target.getAttribute(HOUR_ATTR);
+        let modelHovered = this.modelHovered;
 
         this.weekdays.forEach(function (weekday) {
             modelHovered[weekday][hour] = flag;
@@ -226,8 +226,8 @@ export default class Schedule {
     onMouseDown(event) {
         event.preventDefault();
 
-        var weekday = event.target.getAttribute(WEEKDAY_ATTR);
-        var hour = event.target.getAttribute(HOUR_ATTR);
+        let weekday = event.target.getAttribute(WEEKDAY_ATTR);
+        let hour = event.target.getAttribute(HOUR_ATTR);
 
         this.selection = {
             start: {
@@ -250,8 +250,8 @@ export default class Schedule {
             return;
         }
 
-        var modelSelected = this.modelSelected;
-        var select = false;
+        let modelSelected = this.modelSelected;
+        let select = false;
 
         this.overRectangle(this.selection.start, this.selection.end, function (weekday, hour) {
             if (!modelSelected[weekday][hour]) {
@@ -275,8 +275,8 @@ export default class Schedule {
      * @param {Event} event
      */
     onHover(event) {
-        var weekday = event.target.getAttribute(WEEKDAY_ATTR);
-        var hour = event.target.getAttribute(HOUR_ATTR);
+        let weekday = event.target.getAttribute(WEEKDAY_ATTR);
+        let hour = event.target.getAttribute(HOUR_ATTR);
 
         if (!this.selection) {
             return;
@@ -287,7 +287,7 @@ export default class Schedule {
             hour: hour
         };
 
-        var modelHovered = this.modelHovered = {};
+        let modelHovered = this.modelHovered = {};
         this.setDefaults(this.modelHovered);
 
         this.overRectangle(this.selection.start, this.selection.end, function (weekday, hour) {
@@ -303,17 +303,17 @@ export default class Schedule {
      * @param {Function} fn
      */
     overRectangle(start, end, fn) {
-        var firsWeekdayIndex =  this.weekdays.indexOf(start.weekday);
-        var lastWeekdayIndex = this.weekdays.indexOf(end.weekday);
-        var startWeekdayIndex = Math.min(firsWeekdayIndex,lastWeekdayIndex);
-        var endWeekdayIndex = Math.max(firsWeekdayIndex,lastWeekdayIndex);
+        let firsWeekdayIndex =  this.weekdays.indexOf(start.weekday);
+        let lastWeekdayIndex = this.weekdays.indexOf(end.weekday);
+        let startWeekdayIndex = Math.min(firsWeekdayIndex,lastWeekdayIndex);
+        let endWeekdayIndex = Math.max(firsWeekdayIndex,lastWeekdayIndex);
 
-        var startHour = Math.min(end.hour, parseInt(start.hour));
-        var endHour = Math.max(end.hour, parseInt(start.hour));
+        let startHour = Math.min(end.hour, parseInt(start.hour));
+        let endHour = Math.max(end.hour, parseInt(start.hour));
 
-        for (var weekdayIndex = startWeekdayIndex; weekdayIndex <= endWeekdayIndex; weekdayIndex++) {
-            var weekday = this.weekdays[weekdayIndex];
-            for (var hour = startHour; hour <= endHour; hour++) {
+        for (let weekdayIndex = startWeekdayIndex; weekdayIndex <= endWeekdayIndex; weekdayIndex++) {
+            let weekday = this.weekdays[weekdayIndex];
+            for (let hour = startHour; hour <= endHour; hour++) {
                 fn(weekday, hour);
             }
         }

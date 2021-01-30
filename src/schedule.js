@@ -55,11 +55,11 @@ export default class Schedule {
 
         this.boundOnMouseUp = this.onMouseUp.bind(this);
         window.addEventListener('mouseup', this.boundOnMouseUp);
-        this._element.addEventListener('click', this);
-        this._element.addEventListener('mousedown', this);
-        this._element.addEventListener('mouseup', this);
-        this._element.addEventListener('mouseover', this);
-        this._element.addEventListener('mouseout', this);
+        this.__element.addEventListener('click', this);
+        this.__element.addEventListener('mousedown', this);
+        this.__element.addEventListener('mouseup', this);
+        this.__element.addEventListener('mouseover', this);
+        this.__element.addEventListener('mouseout', this);
     };
 
     /**

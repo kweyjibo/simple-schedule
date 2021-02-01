@@ -4,14 +4,17 @@
   "description": "The simple schedule",
   "scripts": {
     "dev": "parcel ./src/index.pug",
-    "build": "parcel build src/index.pug",
+    "build": "parcel build ./src/index.pug",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kweyjibo/simple-schedule.git"
   },
-  "keywords": [],
+  "keywords": [
+    "component",
+    "schedule"
+  ],
   "author": "kweyjibo",
   "license": "ISC",
   "bugs": {
@@ -19,13 +22,12 @@
   },
   "homepage": "https://github.com/kweyjibo/simple-schedule#readme",
   "dependencies": {
-    "parcel": "^2.0.0-beta.1",
-    "parcel-bundler": "^1.12.4",
-    "schedule": "^0.5.0"
+    "parcel": "2.0.0-nightly.560",
+    "parcel-bundler": "1.12.4"
   },
   "devDependencies": {
-    "marked": "^1.2.8",
-    "pug": "^3.0.0",
-    "sass": "^1.32.4"
+    "marked": "1.2.8",
+    "pug": "3.0.0",
+    "sass": "1.32.5"
   }
 }

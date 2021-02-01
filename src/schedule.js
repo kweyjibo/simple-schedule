@@ -321,10 +321,10 @@ export default class Schedule {
 
     destroy() {
         window.removeEventListener('mouseup', this.boundOnMouseUp);
-        this._element.removeEventListener('click', this, false);
-        this._element.removeEventListener('mousedown', this, false);
-        this._element.removeEventListener('mouseup', this, false);
-        this._element.removeEventListener('mouseover', this, false);
-        this._element.removeEventListener('mouseout', this, false);
+        this.__element.removeEventListener('click', this, false);
+        this.__element.removeEventListener('mousedown', this, false);
+        this.__element.removeEventListener('mouseup', this, false);
+        this.__element.removeEventListener('mouseover', this, false);
+        this.__element.removeEventListener('mouseout', this, false);
     }
 }

@@ -1,6 +1,4 @@
 # Simple schedule
 
-<img width="340" src="https://repository-images.githubusercontent.com/323439297/e0769a80-6171-11eb-8441-ac596bb9306c"/>
-
-[Link](http://ctrl-f5.ru/simple-schedule/public/)
+<img width="340" src="https://repository-images.githubusercontent.com/323439297/02799b00-66e5-11eb-8f1a-1d0d7abb20ff"/>
 

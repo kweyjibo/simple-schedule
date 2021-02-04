@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "The simple schedule",
   "scripts": {
-    "dev": "parcel ./src/index.pug",
+    "dev": "parcel ./src/index.pug --port 1111",
     "build": "parcel build ./src/index.pug",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

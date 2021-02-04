@@ -66,41 +66,42 @@ export default class Schedule {
      * @param {Event} event
      */
     handleEvent(event) {
+        let target = event.target.classList;
         switch(event.type) {
             case 'click':
-                if (event.target.classList.contains(ROW_CLASS)) {
+                if (target.contains(ROW_CLASS)) {
                     this.onChooseRow(event);
                 }
-                if (event.target.classList.contains(COLUMN_CLASS)) {
+                if (target.contains(COLUMN_CLASS)) {
                     this.onChooseColumn(event);
                 }
                 break;
             case 'mousedown':
-                if (event.target.classList.contains(CELL_CLASS)) {
+                if (target.contains(CELL_CLASS)) {
                     this.onMouseDown(event);
                 }
                 break;
             case 'mouseup':
-                if (event.target.classList.contains(CELL_CLASS)) {
+                if (target.contains(CELL_CLASS)) {
                     this.onMouseUp(event);
                 }
                 break;
             case 'mouseover':
-                if (event.target.classList.contains(CELL_CLASS)) {
+                if (target.contains(CELL_CLASS)) {
                     this.onHover(event);
                 }
-                if (event.target.classList.contains(ROW_CLASS)) {
+                if (target.contains(ROW_CLASS)) {
                     this.onHoveredRow(event, true);
                 }
-                if (event.target.classList.contains(COLUMN_CLASS)) {
+                if (target.contains(COLUMN_CLASS)) {
                     this.onHoveredColumn(event, true);
                 }
                 break;
             case 'mouseout':
-                if (event.target.classList.contains(ROW_CLASS)) {
+                if (target.contains(ROW_CLASS)) {
                     this.onHoveredRow(event, false);
                 }
-                if (event.target.classList.contains(COLUMN_CLASS)) {
+                if (target.contains(COLUMN_CLASS)) {
                     this.onHoveredColumn(event, false);
                 }
                 break;
